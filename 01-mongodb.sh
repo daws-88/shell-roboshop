@@ -19,23 +19,29 @@ VALIDATE() {
         echo -e "$2 ....$R FAILURE $N" | tee -a $LOG_FILE
         exit 1
     else 
-        echo -e "  $2....$G SUCCESS $N" | tee -a $LOG_FILE
+        echo -e "$2....$G SUCCESS $N" | tee -a $LOG_FILE
     fi
 }
 
-cp mongo.repo /etc/yum.repos.d/mongo.repo
-VALIDATE $? 
+###### MONGODB #####
 
-dnf install mongodb-org -y 
-VALIDATE $?
+cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
+VALIDATE $? "coying mongo.repo"
 
-systemctl enable mongod 
-VALIDATE $?
+dnf install mongodb-org -y &>>$LOG_FILE
+VALIDATE $? "installing mongodb"
 
-systemctl start mongod 
-VALIDATE $?
+systemctl enable mongod &>>$LOG_FILE
+VALIDATE $? "enabling mongodb"
 
-sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
-VALIDATE $?
+systemctl start mongod  &>>$LOG_FILE
+VALIDATE $? "strating mongodb"
+
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>>$LOG_FILE
+VALIDATE $? "allowing remote connections"
+
+systemctl restart mongod  &>>$LOG_FILE
+VALIDATE $? "restarting mongodb"
+
 
 
