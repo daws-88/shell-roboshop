@@ -45,13 +45,13 @@ fi
 mkdir -p /app
 VALIDATE $? "create /app"
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip
+curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOG_FILEs
 VALIDATE $? "download code"
 
 cd /app
 VALIDATE $? "move to /app"
 
-rm -rf /app/*
+rm -rf /app/* $>>$LOG_FILE
 VALIDATE $? "remove old code"
 
 unzip /tmp/catalogue.zip &>>LOG_FILE
@@ -82,7 +82,6 @@ if [ $INDEX -le 0 ]; then
 else
     echo -e "products already exist..$Y SKIPPING $N"
 fi
-
 systemctl restart catalogue
 VALIDATE $? "restart catalogue"
 
