@@ -3,6 +3,7 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
+START_TIME=$(date +%s)
 SCRIPT_DIR=$PWD
 USERID=$(id -u)
 LOG_FOLDER="/var/log/shell-roboshop"
@@ -61,3 +62,7 @@ VALIDATE $? "Service files reloaded"
 systemctl enable payment &>>$LOG_FILE
 systemctl start payment &>>$LOG_FILE
 VALIDATE $? "Start payment"
+
+END_TIME=$(date +%s)
+TOTAL_TIME=$(($END_TIME-$START_TIME))
+echo "script executed in: $TOTAL_TIME in seconds"
