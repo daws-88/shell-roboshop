@@ -3,6 +3,7 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
+MYSQL_HOST=mysql.daws88s.fun
 SCRIPT_DIR=$PWD
 USERID=$(id -u)
 LOG_FOLDER="/var/log/shell-roboshop"
