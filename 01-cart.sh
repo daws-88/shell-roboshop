@@ -53,10 +53,10 @@ VALIDATE $? "download code"
 cd /app
 VALIDATE $? "move to /app"
 
-rm -rf /app/* $>>$LOG_FILE
+rm -rf /app/* $>>$LOG_FILE 
 VALIDATE $? "remove old code"
 
-unzip /tmp/cart.zip
+unzip /tmp/cart.zip &>>$LOG_FILE
 VALIDATE $? "unzip the code"
 
 npm install &>>$LOG_FILE
