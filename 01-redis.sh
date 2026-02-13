@@ -37,9 +37,4 @@ VALIDATE $? "Aloowing remote connections"
 
 systemctl enable redis &>>$LOG_FILE
 systemctl start redis 
-VALIDATE $? 'Start redis"
-
-
-
-
-
+VALIDATE $? "strat redis"
