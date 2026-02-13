@@ -1,8 +1,10 @@
+
 #!/bin/bash
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
+START_TIME=$(date +%s)
 USERID=$(id -u)
 LOG_FOLDER="/var/log/shell-roboshop"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
@@ -44,4 +46,6 @@ systemctl restart mongod  &>>$LOG_FILE
 VALIDATE $? "restarting mongodb"
 
 
-
+END_TIME=$(date +%s)
+TOTAL_TIME=$(($END_TIME-$START_TIME))
+echo "script executed in: $TOTAL_TIME inseconds"
