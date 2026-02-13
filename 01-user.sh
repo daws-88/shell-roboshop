@@ -73,6 +73,3 @@ VALIDATE $? "enable user"
 
 systemctl restart user
 VALIDATE $? "restart user"
-
-
-
