@@ -3,6 +3,7 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
+START_TIME=$(date +%s)
 USERID=$(id -u)
 LOG_FOLDER="/var/log/shell-roboshop"
 SCRIPT_NAME=$( echo $0 | cut -d "." -f1 )
@@ -36,5 +37,10 @@ sed -i -e 's/127.0.0.1/0.0.0.0./g' -e '/protected-mode/ c protected-mode no' /et
 VALIDATE $? "Aloowing remote connections"
 
 systemctl enable redis &>>$LOG_FILE
-systemctl start redis 
+systemctl start redis &>>$LOG_FILE
 VALIDATE $? "strat redis"
+
+
+END_TIME=$(date +%s)
+TOTAL_TIME=$(($END_TIME-$START_TIME))
+echo "script executed in: $TOTAL_TIME inseconds"
