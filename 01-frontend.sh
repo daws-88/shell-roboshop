@@ -3,6 +3,7 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
+START_TIME=$(date +%s)
 SCRIPT_DIR=$PWD
 USERID=$(id -u)
 LOG_FOLDER="/var/log/shell-roboshop"
@@ -24,35 +25,36 @@ VALIDATE() {
     fi
 }
 
-dnf module disable nginx -y
-VALIDATE $?
+dnf module disable nginx -y &>>$LOG_FILE
+VALIDATE $? "Disable nodejs"
 
-dnf module enable nginx:1.24 -y
-VALIDATE $?
+dnf module enable nginx:1.24 -y &>>$LOG_FILE
+VALIDATE $? "enable nodejs"
 
-dnf install nginx -y
-VALIDATE $?
+dnf install nginx -y &>>$LOG_FILE
+VALIDATE $? "install nodwjs"
 
-systemctl enable nginx
-VALIDATE $? 
+systemctl enable nginx &>>$LOG_FILE
+VALIDATE $? "enable nodejs"
 
-rm -rf /usr/share/nginx/html/* 
-VALIDATE $?
+rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
+VALIDATE $? "remove default content"
 
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
-VALIDATE $?
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>$LOG_FILE
+VALIDATE $? "download frontend content"
 
-cd /usr/share/nginx/html 
-VALIDATE $?
+cd /usr/share/nginx/html &>>$LOG_FILE
+VALIDATE $? "move to usr/share"
 
-unzip /tmp/frontend.zip
-VALIDATE $?
+unzip /tmp/frontend.zip &>>$LOG_FILE
+VALIDATE $? "unzip code"
 
-cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf
-VALIDATE $?
+cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FILE
+VALIDATE $? "created systemctl services"
 
-systemctl restart nginx
-VALIDATE $? 
+systemctl restart nginx &>>$LOG_FILE
+VALIDATE $? "restrat nginx"
 
-
-
+END_TIME=$(date +%s)
+TOTAL_TIME=$(($END_TIME-$START_TIME))
+echo "script executed in: $TOTAL_TIME in seconds"
