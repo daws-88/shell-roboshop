@@ -72,10 +72,9 @@ if [ $? -ne 0 ];
     mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/app-user.sql 
     mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/master-data.sql
 else
-    echo -e "Master data already exist...$Y SKIPPING $N"
+    echo -e "Shipping data is already loaded ... $Y SKIPPING $N"
 fi
-systemctl restart shipping  &>>$LOG_FILE
-VALIDATE  $? "restart shipping"
 
+systemctl restart shipping
 
 
