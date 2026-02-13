@@ -46,7 +46,7 @@ cd /app
 rm -rf /app/* &>>$LOG_FILE
 VALIDATE $? "Remove old code"
 
-unzip /tmp/shipping. &>>$LOG_FILE
+unzip /tmp/shipping.zip &>>$LOG_FILE
 VALIDATE $? "Unzip code"
 
 mvn clean package  &>>$LOG_FILE
