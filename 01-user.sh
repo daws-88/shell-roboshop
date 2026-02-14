@@ -76,4 +76,4 @@ VALIDATE $? "restart user"
 
 END_TIME=$(date +%s)
 TOTAL_TIME=$(($END_TIME-$START_TIME))
-echo "script executed in: $TOTAL_TIME in seconds"
+echo -e "Script executed in: $Y $TOTAL_TIME Seconds $N"
