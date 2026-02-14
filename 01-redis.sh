@@ -23,7 +23,7 @@ VALIDATE() {
         echo -e "$2 ....$G SUCCESS $N" | tee -a $LOG_FILE
     fi
 }
-
+###### REDIS #####
 dnf module disable redis -y &>>$LOG_FILE
 VALIDATE $? "Disable redis"
 
@@ -40,7 +40,6 @@ systemctl enable redis &>>$LOG_FILE
 systemctl start redis &>>$LOG_FILE
 VALIDATE $? "strat redis"
 
-
 END_TIME=$(date +%s)
 TOTAL_TIME=$(($END_TIME-$START_TIME))
-echo "script executed in: $TOTAL_TIME inseconds"
+echo -e "Script executed in: $Y $TOTAL_TIME Seconds $N"
