@@ -23,7 +23,7 @@ VALIDATE() {
         echo -e "$2....$G SUCCESS $N" | tee -a $LOG_FILE
     fi
 }
-#### RABBITMQ #####
+#### RABBITMQ ######
 cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo &>>$LOG_FILE
 VALIDATE $? "Copying mongo.repo"
 

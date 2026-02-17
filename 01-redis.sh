@@ -38,7 +38,7 @@ VALIDATE $? "Aloowing remote connections"
 
 systemctl enable redis &>>$LOG_FILE
 systemctl start redis &>>$LOG_FILE
-VALIDATE $? "strat redis"
+VALIDATE $? "Start redis"
 
 END_TIME=$(date +%s)
 TOTAL_TIME=$(($END_TIME-$START_TIME))

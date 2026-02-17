@@ -28,22 +28,22 @@ VALIDATE() {
 ###### MONGODB #####
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
-VALIDATE $? "coying mongo.repo"
+VALIDATE $? "Coying mongo.repo"
 
 dnf install mongodb-org -y &>>$LOG_FILE
-VALIDATE $? "installing mongodb"
+VALIDATE $? "Installing mongodb"
 
 systemctl enable mongod &>>$LOG_FILE
-VALIDATE $? "enabling mongodb"
+VALIDATE $? "Enabling mongodb"
 
 systemctl start mongod  &>>$LOG_FILE
-VALIDATE $? "strating mongodb"
+VALIDATE $? "Strating mongodb"
 
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>>$LOG_FILE
-VALIDATE $? "allowing remote connections"
+VALIDATE $? "Allowing remote connections"
 
 systemctl restart mongod  &>>$LOG_FILE
-VALIDATE $? "restarting mongodb"
+VALIDATE $? "Restarting mongodb"
 
 END_TIME=$(date +%s)
 TOTAL_TIME=$(($END_TIME-$START_TIME))
