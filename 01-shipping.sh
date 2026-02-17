@@ -33,7 +33,7 @@ VALIDATE $? "Install python"
 id roboshop &>>$LOG_FILE
 if [ $? -ne 0 ]; then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-    VALIDATE $? "add user"
+    VALIDATE $? "Add user"
 else
     echo -e "User already exist...$Y SKIPPING $N"| tee -a $LOG_FILE
 fi

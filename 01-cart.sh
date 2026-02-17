@@ -28,48 +28,48 @@ VALIDATE() {
 ###### CART  ####
 
 dnf module disable nodejs -y &>>$LOG_FILE
-VALIDATE $? "disable nodejs"
+VALIDATE $? "Disable nodejs"
 
 dnf module enable nodejs:20 -y &>>$LOG_FILE
-VALIDATE $? "enable nodejs 20"
+VALIDATE $? "Enable nodejs 20"
 
 dnf install nodejs -y &>>$LOG_FILE
-VALIDATE $? "install nodejs"
+VALIDATE $? "Install nodejs"
 
 id roboshop &>>$LOG_FILE
 if [ $? -ne 0 ]; then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system cart" roboshop
-    VALIDATE $? "add cart"
+    VALIDATE $? "Add user"
 else
     echo -e "User already exist...$Y SKIPPING $N"| tee -a $LOG_FILE
 fi
 
 mkdir -p /app
-VALIDATE $? "create /app"
+VALIDATE $? "Create /app"
 
 curl -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip &>>$LOG_FILE
-VALIDATE $? "download code"
+VALIDATE $? "Download code"
 
 cd /app
-VALIDATE $? "move to /app"
+VALIDATE $? "Move to /app"
 
 rm -rf /app/* $>>$LOG_FILE 
-VALIDATE $? "remove old code"
+VALIDATE $? "Remove old code"
 
 unzip /tmp/cart.zip &>>$LOG_FILE
-VALIDATE $? "unzip the code"
+VALIDATE $? "Unzip the code"
 
 npm install &>>$LOG_FILE
-VALIDATE $? "install dependencies"
+VALIDATE $? "Install dependencies"
 
 cp $SCRIPT_DIR/cart.service /etc/systemd/system/cart.service &>>$LOG_FILE
-VALIDATE $? "created systemctl service"
+VALIDATE $? "Created systemctl service"
 
 systemctl daemon-reload &>>$LOG_FILE
-VALIDATE $? "reload files"
+VALIDATE $? "Reload files"
 
 systemctl enable cart &>>$LOG_FILE
-VALIDATE $? "enable cart"
+VALIDATE $? "Enable cart"
 
 systemctl start cart &>>$LOG_FILE 
 VALIDATE $? "restart cart"

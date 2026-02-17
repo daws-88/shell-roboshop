@@ -29,34 +29,34 @@ dnf module disable nginx -y &>>$LOG_FILE
 VALIDATE $? "Disable Nginx"
 
 dnf module enable nginx:1.24 -y &>>$LOG_FILE
-VALIDATE $? "enable Nginx"
+VALIDATE $? "Enable Nginx"
 
 dnf install nginx -y &>>$LOG_FILE
-VALIDATE $? "install Nginx"
+VALIDATE $? "Install Nginx"
 
 systemctl enable nginx &>>$LOG_FILE
-VALIDATE $? "enable Nginx"
+VALIDATE $? "Enable Nginx"
 
 rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
-VALIDATE $? "remove default content"
+VALIDATE $? "Remove default content"
 
 curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>$LOG_FILE
-VALIDATE $? "download frontend content"
+VALIDATE $? "Download frontend content"
 
 cd /usr/share/nginx/html &>>$LOG_FILE
-VALIDATE $? "move to usr/share"
+VALIDATE $? "Move to usr/share"
 
 unzip /tmp/frontend.zip &>>$LOG_FILE
-VALIDATE $? "unzip code"
+VALIDATE $? "Unzip code"
 
 rm -rf /nginx.conf &>>$LOG_FILE
 VALIDATE $? "Removing defailt configuration"
 
 cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FILE
-VALIDATE $? "created systemctl services"
+VALIDATE $? "Created systemctl services"
 
 systemctl restart nginx &>>$LOG_FILE
-VALIDATE $? "restrat nginx"
+VALIDATE $? "Restrat nginx"
 
 END_TIME=$(date +%s)
 TOTAL_TIME=$(($END_TIME-$START_TIME))
