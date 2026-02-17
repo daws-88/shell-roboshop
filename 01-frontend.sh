@@ -49,6 +49,9 @@ VALIDATE $? "move to usr/share"
 unzip /tmp/frontend.zip &>>$LOG_FILE
 VALIDATE $? "unzip code"
 
+rm -rf /nginx.conf &>>$LOG_FILE
+VALIDATE $? "Removing defailt configuration"
+
 cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FILE
 VALIDATE $? "created systemctl services"
 
