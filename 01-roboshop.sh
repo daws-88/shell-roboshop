@@ -1,7 +1,7 @@
 #!/bin/bash
 AMI_ID="ami-0220d79f3f480ecf5"
 SG_ID="sg-00234e667183faf3a"
-ZONE_ID="Z04973572PK8132GW7876"
+ZONE_ID="Z0209787199P76DBHQQAW"
 DOMAIN_NAME="daws88s.fun"
 
 for instance in $@
